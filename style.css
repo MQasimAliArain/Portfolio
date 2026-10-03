@@ -291,11 +291,11 @@ footer { text-align: center; padding: 1rem; background: #fff; border-top: 1px so
 }
 
 .project-card img {
-  width: 110%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  Width: 100%; /* change from width: 110% to width: 100% to prevent layout spilling */
+  Height: 220px;
+  Object-fit: cover;
+  Border-radius: 8px;
+  Margin-bottom: 15px;
 }
 
 .project-card h3 {
