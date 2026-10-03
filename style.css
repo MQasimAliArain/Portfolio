@@ -222,21 +222,33 @@ footer { text-align: center; padding: 1rem; background: #fff; border-top: 1px so
 }
 
 /* Tabs */
+/* Tabs */
 .project-tabs {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   margin-bottom: 30px;
+  flex-wrap: wrap; /* ensures it wraps nicely on mobile */
 }
 
 .project-tabs label {
   cursor: pointer;
   font-size: 1.05rem;
   color: #444;
-  padding: 6px 14px;
+  padding: 8px 18px;
   transition: all 0.3s ease;
+  font-weight: normal;
+  border-radius: 20px;
 }
 
+/* Active tab style for both desktop and mobile */
+.project-tabs label.active {
+  background: #111 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  border-radius: 25px;
+  padding: 10px 26px;
+}
 #proj-all:checked ~ .project-tabs label[for="proj-all"],
 #proj-programming:checked ~ .project-tabs label[for="proj-programming"],
 #proj-web:checked ~ .project-tabs label[for="proj-web"],
