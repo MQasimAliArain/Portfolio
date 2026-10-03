@@ -13,6 +13,7 @@
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
+    <a href="#qualification">Qualification</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -60,7 +61,7 @@
         <div class="about-card">
           <img src="https://img.icons8.com/ios-filled/50/000000/briefcase.png" alt="Experience Icon" class="card-icon">
           <h3>Experience</h3>
-          <p>Web Development Intern (NextGen Learner)</p>
+          <p>Web Dev Intern & AI/ML Intern</p>
         </div>
         <div class="about-card">
           <img src="https://img.icons8.com/ios-filled/50/000000/project.png" alt="Projects Icon" class="card-icon">
@@ -95,7 +96,6 @@
   <h2 class="section-title">Skills</h2>
 
   <div class="skills-cards-container">
-
     <!-- Programming Languages Card -->
     <div class="about-card skill-card">
       <h3>Programming Languages</h3>
@@ -162,7 +162,6 @@
         <div class="skill-item"><span class="skill-icon">🌍 GitHub</span><div class="skill-level">Intermediate</div></div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -177,6 +176,9 @@
 
     <input type="radio" name="tab" id="experience-tab">
     <label for="experience-tab">💼 Experience</label>
+
+    <input type="radio" name="tab" id="cert-tab">
+    <label for="cert-tab">📜 Certifications</label>
 
     <div class="tab-content">
       <!-- Education Timeline -->
@@ -212,6 +214,24 @@
               Gained hands-on experience developing responsive websites, improving user interface, and learning modern web technologies.
             </div>
           </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              🤖 <strong>AI/ML Engineering Intern</strong> - DevelopersHub Corporation (2026)<br>
+              Completed a 6-week internship program (March – April 2026) focusing on AI/ML engineering with exceptional performance[cite: 3].
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications Timeline -->
+      <div class="tab-panel" id="certifications">
+        <div class="timeline">
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              📜 <strong>Generative AI Application Developer</strong> - Pak Angels & iCode Guru (2025)<br>
+              Successfully completed Generative AI Training (June – July 2025) and received the Top Performer Award[cite: 4].
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -222,14 +242,12 @@
 <section id="projects" class="section">
   <h2 class="section-title">Projects</h2>
 
-  <!-- RADIO INPUTS -->
   <input type="radio" name="project-tab" id="proj-all" checked>
   <input type="radio" name="project-tab" id="proj-programming">
   <input type="radio" name="project-tab" id="proj-web">
   <input type="radio" name="project-tab" id="proj-app">
   <input type="radio" name="project-tab" id="proj-ai">
 
-  <!-- CATEGORY LABELS -->
   <div class="project-tabs">
     <label for="proj-all">All</label>
     <label for="proj-programming">Programming</label>
@@ -238,9 +256,7 @@
     <label for="proj-ai">AI & ML</label>
   </div>
 
-  <!-- PROJECT CONTENT -->
   <div class="projects-wrapper">
-
     <div class="projects-grid all">
       <div class="project-card">
         <img src="tourism.jpg" alt="Tourism Management System">
@@ -296,7 +312,6 @@
         <p>Machine learning based face recognition system.</p>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -305,8 +320,6 @@
   <h2 class="section-title">Contact</h2>
 
   <div class="contact-container">
-
-    <!-- LEFT SIDE CARD -->
     <div class="contact-left">
       <div class="contact-card">
         <p class="contact-text">
@@ -316,16 +329,16 @@
 
         <div class="contact-icons">
           <a href="https://www.instagram.com/qasim_ali_arain_/" target="_blank">
-            <img src="https://img.icons8.com/ios-filled/48/000000/instagram-new.png">
+            <img src="https://img.icons8.com/ios-filled/48/000000/instagram-new.png" alt="Instagram">
           </a>
           <a href="mailto:qasimaliarain6@gmail.com">
-            <img src="https://img.icons8.com/ios-filled/48/000000/email-open.png">
+            <img src="https://img.icons8.com/ios-filled/48/000000/email-open.png" alt="Email">
           </a>
           <a href="https://www.linkedin.com/in/muhammad-qasim-ali-606531308/" target="_blank">
-            <img src="https://img.icons8.com/ios-filled/48/000000/linkedin.png">
+            <img src="https://img.icons8.com/ios-filled/48/000000/linkedin.png" alt="LinkedIn">
           </a>
           <a href="https://github.com/MQasimAliArain" target="_blank">
-            <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png">
+            <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png" alt="GitHub">
           </a>
         </div>
 
@@ -335,39 +348,36 @@
       </div>
     </div>
 
-    <!-- RIGHT SIDE FORM -->
     <div class="contact-right">
       <form id="contact-form" novalidate>
-
         <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" name="name" placeholder="Your Name">
-          <span class="error-message"></span>
-        </div>
-
-       <div class="form-group">
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email" placeholder="Your Email" required>
-  <span class="error-message"></span>
-  <small class="info-text">Your email will be used to reply. Make sure it’s valid.</small>
-</div>
-
-        <div class="form-group">
-          <label>Subject</label>
-          <input type="text" name="subject" placeholder="Subject">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Your Name">
           <span class="error-message"></span>
         </div>
 
         <div class="form-group">
-          <label>Message</label>
-          <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Your Email" required>
+          <span class="error-message"></span>
+          <small class="info-text">Your email will be used to reply. Make sure it’s valid.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Subject">
+          <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Your Message"></textarea>
           <span class="error-message"></span>
         </div>
 
         <button type="submit" class="submit-btn">Send Message</button>
       </form>
     </div>
-
   </div>
 </section>
 
@@ -453,8 +463,6 @@
   });
 
   confirmYes.addEventListener("click", () => {
-
-    // EMAIL TO YOU
     emailjs.send("service_ynd99mn", "template_qxupzzh", {
       from_name: form.name.value,
       from_email: form.email.value,
@@ -462,8 +470,6 @@
       message: form.message.value,
       to_email: "qasimaliarain6@gmail.com"
     })
-
-    // AUTO-REPLY TO USER
     .then(() => {
       return emailjs.send("service_ynd99mn", "template_ujj6st4", {
         from_name: form.name.value,
@@ -472,7 +478,6 @@
         message: form.message.value
       });
     })
-
     .then(() => {
       modalButtons.style.display = "none";
       modalText.style.display = "none";
@@ -483,19 +488,19 @@
         form.reset();
       }, 2000);
     })
-
     .catch(err => {
       alert("Something went wrong. Try again.");
       console.error(err);
     });
   });
+
   confirmNo.addEventListener("click", () => {
     modal.style.display = "none";
   });
 </script>
 </main>
 <footer>
-  © 2025 Muhammad Qasim Ali
+  © 2026 Muhammad Qasim Ali
 </footer>
 </body>
 </html>
