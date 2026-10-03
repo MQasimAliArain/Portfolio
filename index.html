@@ -131,7 +131,7 @@
       <h3>Frameworks & Libraries</h3>
       <div class="skills-row">
         <div class="skill-item"><span class="skill-icon">📊 Pandas</span><div class="skill-level">Intermediate</div></div>
-        <div class="skill-item"><span class="skill-icon">⚛️ React</span><div class="skill-level">Basic</div></div>
+        <div class="skill-item"><span class="skill-icon">⚛ React</span><div class="skill-level">Basic</div></div>
       </div>
       <div class="skills-row">
         <div class="skill-item"><span class="skill-icon">📐 NumPy</span><div class="skill-level">Intermediate</div></div>
@@ -169,7 +169,6 @@
 <section id="qualification" class="section">
   <h2 class="section-title">Qualification</h2>
 
-  <!-- Tabs using radio buttons -->
   <div class="qualification-tabs">
     <input type="radio" name="tab" id="education-tab" checked>
     <label for="education-tab">🎓 Education</label>
@@ -217,7 +216,7 @@
           <div class="timeline-item right">
             <div class="timeline-content">
               🤖 <strong>AI/ML Engineering Intern</strong> - DevelopersHub Corporation (2026)<br>
-              Completed a 6-week internship program (March – April 2026) focusing on AI/ML engineering with exceptional performance[cite: 3].
+              Completed a 6-week internship program (March – April 2026) focusing on AI/ML engineering with exceptional performance.
             </div>
           </div>
         </div>
@@ -229,7 +228,7 @@
           <div class="timeline-item left">
             <div class="timeline-content">
               📜 <strong>Generative AI Application Developer</strong> - Pak Angels & iCode Guru (2025)<br>
-              Successfully completed Generative AI Training (June – July 2025) and received the Top Performer Award[cite: 4].
+              Successfully completed Generative AI Training (June – July 2025) and received the Top Performer Award.
             </div>
           </div>
         </div>
@@ -242,75 +241,14 @@
 <section id="projects" class="section">
   <h2 class="section-title">Projects</h2>
 
-  <input type="radio" name="project-tab" id="proj-all" checked>
-  <input type="radio" name="project-tab" id="proj-programming">
-  <input type="radio" name="project-tab" id="proj-web">
-  <input type="radio" name="project-tab" id="proj-app">
-  <input type="radio" name="project-tab" id="proj-ai">
-
-  <div class="project-tabs">
-    <label for="proj-all">All</label>
-    <label for="proj-programming">Programming</label>
-    <label for="proj-web">Web</label>
-    <label for="proj-app">App</label>
-    <label for="proj-ai">AI & ML</label>
-  </div>
-
-  <div class="projects-wrapper">
-    <div class="projects-grid all">
-      <div class="project-card">
-        <img src="tourism.jpg" alt="Tourism Management System">
-        <h3>Tourism Management System</h3>
-        <p>Web-based system for managing tours, bookings, and users.</p>
-      </div>
-      <div class="project-card">
-        <img src="restaurant.jpg" alt="Restaurant Website">
-        <h3>Restaurant Website</h3>
-        <p>Responsive restaurant website with menu and contact features.</p>
-      </div>
-      <div class="project-card">
-        <img src="fishing.jpg" alt="Fishing Management System">
-        <h3>Fishing Management System</h3>
-        <p>Console-based project for handling fishing records.</p>
-      </div>
-      <div class="project-card">
-        <img src="face_recognition.jpg" alt="Face Recognition Attendance">
-        <h3>Face Recognition Attendance</h3>
-        <p>AI-based attendance system using face recognition.</p>
-      </div>
+  <div id="dynamic-projects-section">
+    <div class="project-tabs" id="dynamic-tabs-container">
+      <!-- "All" tab is permanently placed here first -->
+      <label class="tab-label active" data-category="all" style="text-transform: none !important;">All</label>
     </div>
-
-    <div class="projects-grid programming">
-      <div class="project-card">
-        <img src="fishing.jpg" alt="Fishing Management System">
-        <h3>Fishing Management System</h3>
-        <p>Programming-based console application.</p>
-      </div>
-    </div>
-
-    <div class="projects-grid web">
-      <div class="project-card">
-        <img src="tourism.jpg" alt="Tourism Management System">
-        <h3>Tourism Management System</h3>
-        <p>Complete web solution for tour management.</p>
-      </div>
-      <div class="project-card">
-        <img src="restaurant.jpg" alt="Restaurant Website">
-        <h3>Restaurant Website</h3>
-        <p>Modern and responsive restaurant website.</p>
-      </div>
-    </div>
-
-    <div class="projects-grid app">
-      <div class="no-projects">No projects yet</div>
-    </div>
-
-    <div class="projects-grid ai">
-      <div class="project-card">
-        <img src="face_recognition.jpg" alt="Face Recognition Attendance">
-        <h3>Face Recognition Attendance</h3>
-        <p>Machine learning based face recognition system.</p>
-      </div>
+    <div class="projects-wrapper" id="dynamic-grids-container">
+      <!-- "All" grid container is permanently placed here first -->
+      <div class="projects-grid active" data-grid="all" style="display:grid;"></div>
     </div>
   </div>
 </section>
@@ -398,9 +336,115 @@
   </div>
 </div>
 
-<!-- EmailJS -->
+<!-- EmailJS & Dynamic Google Sheet Projects Loader -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Robust case-insensitive property retriever
+    function getProp(obj, possibleKeys) {
+      if (!obj) return '';
+      const objKeys = Object.keys(obj);
+      for (let key of possibleKeys) {
+        const found = objKeys.find(k => k.toLowerCase() === key.toLowerCase());
+        if (found !== undefined && obj[found] !== undefined && obj[found] !== null && String(obj[found]).trim() !== '') {
+          return String(obj[found]).trim();
+        }
+      }
+      return '';
+    }
+
+    fetch("https://sheetdb.io/api/v1/swi5ibdtjonkc")
+      .then(response => response.json())
+      .then(projectsData => {
+        const tabsContainer = document.getElementById("dynamic-tabs-container");
+        const gridsContainer = document.getElementById("dynamic-grids-container");
+
+        // Extract categories securely, preserving exact uppercase/mixed case from sheet
+        const rawCategories = projectsData.map(p => {
+          const cat = getProp(p, ['category', 'cat', 'type']);
+          return cat !== '' ? cat : 'Uncategorized';
+        });
+        const categories = [...new Set(rawCategories)];
+
+        // Build dynamic category tabs and grid wrappers with text-transform forced off
+        categories.forEach(cat => {
+          if (cat.toLowerCase() !== 'all') {
+            tabsContainer.innerHTML += `<label class="tab-label" data-category="${cat}" style="text-transform: none !important;">${cat}</label>`;
+            gridsContainer.innerHTML += `<div class="projects-grid" data-grid="${cat}" style="display:none;"></div>`;
+          }
+        });
+
+        // Populate project cards into "All" and their respective category grid
+        projectsData.forEach(p => {
+          const cat = getProp(p, ['category', 'cat', 'type']) || 'Uncategorized';
+          const title = getProp(p, ['title', 'name', 'projecttitle']) || 'Untitled Project';
+          const description = getProp(p, ['description', 'desc', 'details']) || 'No description provided.';
+          const image = getProp(p, ['image', 'img', 'picture', 'photo', 'imagelink']);
+          const github = getProp(p, ['github', 'link', 'repository', 'url', 'code']);
+
+          // Safe image fallback HTML if image field is missing or empty
+          const imageHTML = (image !== '') 
+            ? `<img src="${image}" alt="${title}" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:15px;">` 
+            : `<div style="width:100%; height:200px; background:#e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#555; margin-bottom:15px; font-weight:bold;">No Image Provided</div>`;
+          
+          // Safe github button HTML if github field is missing or empty
+          const githubLink = (github !== '') 
+            ? `<a href="${github}" target="_blank" class="project-github-btn" style="display:inline-block; margin-top:10px; font-size:14px; text-decoration:none; color:#007bff;">GitHub Repository &rarr;</a>` 
+            : '';
+          
+          const cardHTML = `
+            <div class="project-card">
+              ${imageHTML}
+              <h3 style="text-transform: none !important;">${title}</h3>
+              <p>${description}</p>
+              ${githubLink}
+            </div>
+          `;
+
+          // Re-query 'allGrid' dynamically per iteration to guarantee it's always found and appended correctly
+          const allGrid = gridsContainer.querySelector('[data-grid="all"]');
+          if (allGrid) {
+            allGrid.innerHTML += cardHTML;
+          }
+
+          // Append to specific category grid
+          const targetGrid = gridsContainer.querySelector(`[data-grid="${cat}"]`);
+          if (targetGrid) {
+            targetGrid.innerHTML += cardHTML;
+          }
+        });
+
+        // Check for empty grids and show notice
+        gridsContainer.querySelectorAll(".projects-grid").forEach(grid => {
+          if (grid.innerHTML.trim() === "") {
+            grid.innerHTML = `<div class="no-projects">No projects yet</div>`;
+          }
+        });
+
+        // Tab Switching & Active State Styling
+        const labels = tabsContainer.querySelectorAll(".tab-label");
+        const grids = gridsContainer.querySelectorAll(".projects-grid");
+
+        labels.forEach(label => {
+          label.addEventListener("click", () => {
+            labels.forEach(l => l.classList.remove("active"));
+            label.classList.add("active");
+
+            const selectedCat = label.getAttribute("data-category");
+            grids.forEach(grid => {
+              if (grid.getAttribute("data-grid") === selectedCat) {
+                grid.style.display = "grid";
+              } else {
+                grid.style.display = "none";
+              }
+            });
+          });
+        });
+      })
+      .catch(error => console.error("Error loading projects from Google Sheet:", error));
+  });
+
+  // --- EMAILJS & CONTACT FORM LOGIC ---
   emailjs.init("zOVuNW4QSeUyaCF8w");
 
   const form = document.getElementById("contact-form");
