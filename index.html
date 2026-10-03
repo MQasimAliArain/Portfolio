@@ -379,12 +379,14 @@
           const cat = getProp(p, ['category', 'cat', 'type']) || 'Uncategorized';
           const title = getProp(p, ['title', 'name', 'projecttitle']) || 'Untitled Project';
           const description = getProp(p, ['description', 'desc', 'details']) || 'No description provided.';
-          const image = getProp(p, ['image', 'img', 'picture', 'photo', 'imagelink']);
+          
+          // Check multiple potential column names for images
+          const image = getProp(p, ['image', 'img', 'picture', 'photo', 'imagelink', 'image_url', 'project_image']);
           const github = getProp(p, ['github', 'link', 'repository', 'url', 'code']);
 
-          // Safe image fallback HTML if image field is missing or empty
+          // Safe image HTML generation with error fallback handling
           const imageHTML = (image !== '') 
-            ? `<img src="${image}" alt="${title}" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:15px;">` 
+            ? `<img src="${image}" alt="${title}" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%; height:200px; background:#e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#555; margin-bottom:15px; font-weight:bold;\'>Image Failed to Load</div>';">` 
             : `<div style="width:100%; height:200px; background:#e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#555; margin-bottom:15px; font-weight:bold;">No Image Provided</div>`;
           
           // Safe github button HTML if github field is missing or empty
