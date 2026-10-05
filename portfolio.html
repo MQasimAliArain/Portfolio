@@ -338,8 +338,6 @@
 
 <!-- EmailJS & Dynamic Google Sheet Projects Loader -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<!-- EmailJS & Dynamic Google Sheet Projects Loader -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     // Robust case-insensitive property retriever
@@ -358,7 +356,6 @@
     // Helper function to auto-convert Google Drive sharing links to direct image links
     function processImageURL(url) {
       if (!url) return '';
-      // Check if it's a standard Google Drive file view link
       if (url.includes('drive.google.com/file/d/')) {
         const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
@@ -374,14 +371,12 @@
         const tabsContainer = document.getElementById("dynamic-tabs-container");
         const gridsContainer = document.getElementById("dynamic-grids-container");
 
-        // Extract categories securely, preserving exact uppercase/mixed case from sheet
         const rawCategories = projectsData.map(p => {
           const cat = getProp(p, ['category', 'cat', 'type']);
           return cat !== '' ? cat : 'Uncategorized';
         });
         const categories = [...new Set(rawCategories)];
 
-        // Build dynamic category tabs and grid wrappers with text-transform forced off
         categories.forEach(cat => {
           if (cat.toLowerCase() !== 'all') {
             tabsContainer.innerHTML += `<label class="tab-label" data-category="${cat}" style="text-transform: none !important;">${cat}</label>`;
@@ -389,23 +384,19 @@
           }
         });
 
-        // Populate project cards into "All" and their respective category grid
         projectsData.forEach(p => {
           const cat = getProp(p, ['category', 'cat', 'type']) || 'Uncategorized';
           const title = getProp(p, ['title', 'name', 'projecttitle']) || 'Untitled Project';
           const description = getProp(p, ['description', 'desc', 'details']) || 'No description provided.';
           
-          // Check multiple potential column names for images and auto-convert if Google Drive link
           const rawImage = getProp(p, ['image', 'img', 'picture', 'photo', 'imagelink', 'image_url', 'project_image']);
           const image = processImageURL(rawImage);
           const github = getProp(p, ['github', 'link', 'repository', 'url', 'code']);
 
-          // Safe image HTML generation with error fallback handling
           const imageHTML = (image !== '') 
             ? `<img src="${image}" alt="${title}" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%; height:200px; background:#e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#555; margin-bottom:15px; font-weight:bold;\'>Image Failed to Load</div>';">` 
             : `<div style="width:100%; height:200px; background:#e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#555; margin-bottom:15px; font-weight:bold;">No Image Provided</div>`;
           
-          // Safe github button HTML if github field is missing or empty
           const githubLink = (github !== '') 
             ? `<a href="${github}" target="_blank" class="project-github-btn" style="display:inline-block; margin-top:10px; font-size:14px; text-decoration:none; color:#007bff;">GitHub Repository &rarr;</a>` 
             : '';
@@ -419,27 +410,23 @@
             </div>
           `;
 
-          // Re-query 'allGrid' dynamically per iteration to guarantee it's always found and appended correctly
           const allGrid = gridsContainer.querySelector('[data-grid="all"]');
           if (allGrid) {
             allGrid.innerHTML += cardHTML;
           }
 
-          // Append to specific category grid
           const targetGrid = gridsContainer.querySelector(`[data-grid="${cat}"]`);
           if (targetGrid) {
             targetGrid.innerHTML += cardHTML;
           }
         });
 
-        // Check for empty grids and show notice
         gridsContainer.querySelectorAll(".projects-grid").forEach(grid => {
           if (grid.innerHTML.trim() === "") {
             grid.innerHTML = `<div class="no-projects">No projects yet</div>`;
           }
         });
 
-        // Tab Switching & Active State Styling
         const labels = tabsContainer.querySelectorAll(".tab-label");
         const grids = gridsContainer.querySelectorAll(".projects-grid");
 
@@ -487,32 +474,23 @@
     if (!name) {
       form.name.nextElementSibling.textContent = "Full Name is required";
       valid = false;
-    } else if (!/^[A-Za-z\s]{1,25}$/.test(name)) {
-      form.name.nextElementSibling.textContent = "Only letters allowed (max 25)";
-      valid = false;
     }
 
     if (!email) {
       form.email.nextElementSibling.textContent = "Email is required";
       valid = false;
-    } else if (!/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-      form.email.nextElementSibling.textContent = "Enter a valid email (example@gmail.com)";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      form.email.nextElementSibling.textContent = "Enter a valid email address";
       valid = false;
     }
 
     if (!subject) {
       form.subject.nextElementSibling.textContent = "Subject is required";
       valid = false;
-    } else if (!/^[A-Za-z\s]+$/.test(subject)) {
-      form.subject.nextElementSibling.textContent = "Only letters allowed";
-      valid = false;
     }
 
     if (!message) {
       form.message.nextElementSibling.textContent = "Message is required";
-      valid = false;
-    } else if (!/^(?=.*[A-Za-z])[A-Za-z\s.,!?]+$/.test(message)) {
-      form.message.nextElementSibling.textContent = "Message must contain letters";
       valid = false;
     }
 
@@ -529,16 +507,7 @@
       from_name: form.name.value,
       from_email: form.email.value,
       subject: form.subject.value,
-      message: form.message.value,
-      to_email: "qasimaliarain6@gmail.com"
-    })
-    .then(() => {
-      return emailjs.send("service_ynd99mn", "template_ujj6st4", {
-        from_name: form.name.value,
-        from_email: form.email.value,
-        subject: form.subject.value,
-        message: form.message.value
-      });
+      message: form.message.value
     })
     .then(() => {
       modalButtons.style.display = "none";
@@ -552,7 +521,7 @@
     })
     .catch(err => {
       alert("Something went wrong. Try again.");
-      console.error(err);
+      console.error("EmailJS Error:", err);
     });
   });
 
@@ -566,3 +535,4 @@
 </footer>
 </body>
 </html>
+
